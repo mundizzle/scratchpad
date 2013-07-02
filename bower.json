@@ -1,0 +1,7 @@
+{
+  "name": "rotide",
+  "version": "0.0.0",
+  "dependencies": {
+    "ace-builds": "https://github.com/ajaxorg/ace-builds.git#~1.1.01"
+  }
+}

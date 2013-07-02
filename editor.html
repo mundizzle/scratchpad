@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<style>
+		#editor {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="editor"></div>
+
+	<script src="components/ace-builds/src-min/ace.js"></script>
+	<script>
+		var editor = ace.edit('editor');
+		editor.setTheme('ace/theme/solarized_dark'),
+		editor.getSession().setMode('ace/mode/html');
+		editor.on('change', function(e){
+			parent.postMessage(editor.getValue(), '*');
+		});
+	</script>
+
+</body>
+</html>
