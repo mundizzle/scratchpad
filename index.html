@@ -33,28 +33,57 @@ iframe {
 </style>
 </head>
 <body>
+	<a href="http://mundizzle.github.io/scratchpad/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+
 	<iframe name="editor" src="editor.html"></iframe>
 	<iframe name="viewer"></iframe>
 	<script>
-	window.addEventListener("message", function(e) {
-		var doc = window.viewer.document;
-		var viewer = window.viewer;
-		doc.documentElement.innerHTML = e.data;
+	// anytime the editor content changes, this is triggered
+	window.addEventListener('message', function(e) {
 
-		var scripts = doc.getElementsByTagName('script')
+		// reference to the viewer iframe
+		var viewer = window.viewer;
+		var viewerDoc = viewer.document;
+
+		// grab the code currently in the editor
+		// and innerHTML it into the viewer
+		viewerDoc.documentElement.innerHTML = e.data;
+
+		// OK. cool! HTML and CSS work fine, however JS will
+		// not be executed when innerHTML'd
+		// so we have to find all the <script> tags
+		// and manually execute them
+
+		// find all the script tags
+		var scripts = viewerDoc.getElementsByTagName('script')
+
 		var script;
 		for (var i = 0; i < scripts.length; i++) {
+
 			script = scripts[i];
 
-			if(script.getAttribute('src')){
+			// create a new script element
+			var newScript = document.createElement('script');
 
-				var newScript = document.createElement('script');
-				newScript.setAttribute('src', script.getAttribute('src'))
-				script.parentNode.replaceChild(newScript, script);
+			// script tags will contain code or have a src attr
+			// so we'll store a reference to both
+			var code = script.innerText;
+			var src = script.getAttribute('src');
 
-			}else{
-				viewer.eval(script.innerText);
+			// if the tag has a src, let's ajax it in syncronously
+			// in order to preserve the order of execution
+			if(src){
+				var xhr = new XMLHttpRequest();
+				xhr.open( 'GET', src, false ); // async = false
+				xhr.send( null );
+				code = xhr.responseText;
 			}
+
+			// now append our "code" into the new script tag
+			newScript.innerText = code;
+
+			// and replace the old with the new. now the JS should execute
+			script.parentNode.replaceChild(newScript, script);
 
 		}
 	}, false);
