@@ -8,6 +8,7 @@ body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	font-family: sans-serif;
 }
 
 iframe {
@@ -30,31 +31,40 @@ iframe {
 	bottom: 0;
 	width: 50%;
 }
+
+#run {
+	position: fixed;
+	top: 0;
+	right: 50%;
+	z-index: 10;
+	border-bottom: 1px solid #859900;
+	border-left: 1px solid #859900;
+	cursor: pointer;
+	display: inline-block;
+	padding: 10px 20px;
+	color: #859900;
+	font-weight: bold;
+	border-radius: 0 0 0 5px;
+	display: none;
+}
 </style>
 </head>
 <body>
 
 <a href="http://mundizzle.github.io/scratchpad/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
+<div id="run">Run JS</div>
+
 <iframe name="editor" src="editor.html"></iframe>
 <iframe name="preview"></iframe>
 
 <script>
-// anytime the editor content changes, this is triggered
-window.addEventListener('message', function(e) {
+
+var runJS = function(){
 
 	// reference to the preview iframe
 	var preview = window.preview;
 	var previewDoc = preview.document;
-
-	// grab the code currently in the editor
-	// and innerHTML it into the preview
-	previewDoc.documentElement.innerHTML = e.data;
-
-	// OK. cool! HTML and CSS work fine, however JS will
-	// not be executed when innerHTML'd
-	// so we have to find all the <script> tags
-	// and manually execute them
 
 	// find all the script tags
 	var scripts = previewDoc.getElementsByTagName('script')
@@ -88,6 +98,32 @@ window.addEventListener('message', function(e) {
 		script.parentNode.replaceChild(newScript, script);
 
 	}
+
+};
+
+document.getElementById('run').addEventListener('click', runJS, false);
+
+// anytime the editor content changes, this is triggered
+window.addEventListener('message', function(e) {
+
+	// reference to the preview iframe
+	var preview = window.preview;
+	var previewDoc = preview.document;
+
+	// grab the code currently in the editor
+	// and innerHTML it into the preview
+	previewDoc.documentElement.innerHTML = e.data;
+
+	// OK. cool! HTML and CSS work fine, however JS will
+	// not be executed when innerHTML'd
+	// so we have to find all the <script> tags
+	// and manually execute them
+
+	var scripts = previewDoc.getElementsByTagName('script')
+
+	document.getElementById('run').style.display = scripts.length ? 'block' : 'none';
+
+
 }, false);
 </script>
 
