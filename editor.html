@@ -1,31 +1,55 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<style>
-		#editor {
-			position: absolute;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
-			font-size: 1em;
-			font-family: "Source Code Pro", "Consolas", "Monaco", "Courier New", monospace
-		}
-	</style>
+<style>
+#editor {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	font-size: 1em;
+	font-family: "Source Code Pro", "Consolas", "Monaco", "Courier New", monospace
+}
+</style>
 </head>
 <body>
 
-	<div id="editor"></div>
+<div id="editor"></div>
 
-	<script src="components/ace-builds/src-min/ace.js" charset="utf-8"></script>
-	<script>
-		var editor = ace.edit('editor');
-		editor.setTheme('ace/theme/solarized_dark'),
-		editor.getSession().setMode('ace/mode/html');
-		editor.on('change', function(e){
-			parent.postMessage(editor.getValue(), '*');
-		});
-	</script>
+<textarea id="boilerplate" style="display:none"><!doctype html>
+<html lang="en">
+<head>
+<style>
+body {
+	font-family: sans-serif;
+}
+</style>
+</head>
+<body>
+
+Hello World
+
+<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+(function(){
+
+})();
+</script>
+
+</body>
+</html></textarea>
+
+<script src="components/ace-builds/src-min/ace.js" charset="utf-8"></script>
+<script>
+	var editor = ace.edit('editor');
+	editor.setTheme('ace/theme/solarized_dark'),
+	editor.getSession().setMode('ace/mode/html');
+	editor.on('change', function(e){
+		parent.postMessage(editor.getValue(), '*');
+	});
+	editor.setValue(document.getElementById('boilerplate').value);
+</script>
 
 </body>
 </html>

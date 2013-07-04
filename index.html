@@ -24,7 +24,7 @@ iframe {
 	width: 50%;
 }
 
-[name=viewer]{
+[name=preview]{
 	top: 0;
 	right: 0;
 	bottom: 0;
@@ -33,60 +33,74 @@ iframe {
 </style>
 </head>
 <body>
-	<a href="http://mundizzle.github.io/scratchpad/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
-	<iframe name="editor" src="editor.html"></iframe>
-	<iframe name="viewer"></iframe>
-	<script>
-	// anytime the editor content changes, this is triggered
-	window.addEventListener('message', function(e) {
+<a href="http://mundizzle.github.io/scratchpad/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
-		// reference to the viewer iframe
-		var viewer = window.viewer;
-		var viewerDoc = viewer.document;
+<iframe name="editor" src="editor.html"></iframe>
+<iframe name="preview"></iframe>
 
-		// grab the code currently in the editor
-		// and innerHTML it into the viewer
-		viewerDoc.documentElement.innerHTML = e.data;
+<script>
+// anytime the editor content changes, this is triggered
+window.addEventListener('message', function(e) {
 
-		// OK. cool! HTML and CSS work fine, however JS will
-		// not be executed when innerHTML'd
-		// so we have to find all the <script> tags
-		// and manually execute them
+	// reference to the preview iframe
+	var preview = window.preview;
+	var previewDoc = preview.document;
 
-		// find all the script tags
-		var scripts = viewerDoc.getElementsByTagName('script')
+	// grab the code currently in the editor
+	// and innerHTML it into the preview
+	previewDoc.documentElement.innerHTML = e.data;
 
-		var script;
-		for (var i = 0; i < scripts.length; i++) {
+	// OK. cool! HTML and CSS work fine, however JS will
+	// not be executed when innerHTML'd
+	// so we have to find all the <script> tags
+	// and manually execute them
 
-			script = scripts[i];
+	// find all the script tags
+	var scripts = previewDoc.getElementsByTagName('script')
 
-			// create a new script element
-			var newScript = document.createElement('script');
+	var script;
+	for (var i = 0; i < scripts.length; i++) {
 
-			// script tags will contain code or have a src attr
-			// so we'll store a reference to both
-			var code = script.innerText;
-			var src = script.getAttribute('src');
+		script = scripts[i];
 
-			// if the tag has a src, let's ajax it in syncronously
-			// in order to preserve the order of execution
-			if(src){
-				var xhr = new XMLHttpRequest();
-				xhr.open( 'GET', src, false ); // async = false
-				xhr.send( null );
-				code = xhr.responseText;
-			}
+		// create a new script element
+		var newScript = document.createElement('script');
 
-			// now append our "code" into the new script tag
-			newScript.innerText = code;
+		// script tags will contain code or have a src attr
+		// so we'll store a reference to both
+		var code = script.innerText;
+		var src = script.getAttribute('src');
 
-			// and replace the old with the new. now the JS should execute
-			script.parentNode.replaceChild(newScript, script);
-
+		// if the tag has a src, let's ajax it in syncronously
+		// in order to preserve the order of execution
+		if(src){
+			var xhr = new XMLHttpRequest();
+			xhr.open( 'GET', src, false ); // async = false
+			xhr.send( null );
+			code = xhr.responseText;
 		}
-	}, false);
-	</script>
+
+		// now append our "code" into the new script tag
+		newScript.innerText = code;
+
+		// and replace the old with the new. now the JS should execute
+		script.parentNode.replaceChild(newScript, script);
+
+	}
+}, false);
+</script>
+
+<!-- Google Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42187450-1', 'mundizzle.github.io');
+  ga('send', 'pageview');
+</script>
+
 </body>
 </html>
