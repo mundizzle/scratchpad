@@ -37,7 +37,26 @@ iframe {
 	<iframe name="viewer"></iframe>
 	<script>
 	window.addEventListener("message", function(e) {
-		window.viewer.document.documentElement.innerHTML = e.data;
+		var doc = window.viewer.document;
+		var viewer = window.viewer;
+		doc.documentElement.innerHTML = e.data;
+
+		var scripts = doc.getElementsByTagName('script')
+		var script;
+		for (var i = 0; i < scripts.length; i++) {
+			script = scripts[i];
+
+			if(script.getAttribute('src')){
+
+				var newScript = document.createElement('script');
+				newScript.setAttribute('src', script.getAttribute('src'))
+				script.parentNode.replaceChild(newScript, script);
+
+			}else{
+				viewer.eval(script.innerText);
+			}
+
+		}
 	}, false);
 	</script>
 </body>
