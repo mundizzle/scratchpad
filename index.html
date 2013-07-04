@@ -17,24 +17,24 @@ iframe {
 	position: fixed;
 }
 
-[name=viewer]{
+[name=editor]{
 	top: 0;
-	right: 50%;
 	bottom: 0;
 	left: 0;
+	width: 50%;
 }
 
-[name=editor]{
+[name=viewer]{
 	top: 0;
 	right: 0;
 	bottom: 0;
-	left: 50%;
+	width: 50%;
 }
 </style>
 </head>
 <body>
-	<iframe name="viewer"></iframe>
 	<iframe name="editor" src="editor.html"></iframe>
+	<iframe name="viewer"></iframe>
 	<script>
 	window.addEventListener("message", function(e) {
 		window.viewer.document.documentElement.innerHTML = e.data;
