@@ -37,12 +37,12 @@ iframe {
 	top: 0;
 	right: 50%;
 	z-index: 10;
-	border-bottom: 1px solid #859900;
-	border-left: 1px solid #859900;
+	border-bottom: 1px solid #93A1A1;
+	border-left: 1px solid #93A1A1;
 	cursor: pointer;
 	display: inline-block;
-	padding: 10px 20px;
-	color: #859900;
+	padding: 5px 10px;
+	color: #93A1A1;
 	font-weight: bold;
 	border-radius: 0 0 0 5px;
 	display: none;
@@ -53,14 +53,22 @@ iframe {
 
 <a href="http://mundizzle.github.io/scratchpad/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
-<div id="run">Run JS</div>
+<div id="run">Run JS &raquo;</div>
 
 <iframe name="editor" src="editor.html"></iframe>
 <iframe name="preview"></iframe>
 
 <script>
 
+window.addEventListener('hashchange', function(){
+	location.reload();
+}, false);
+
+var runButton = document.getElementById('run');
+
 var runJS = function(){
+
+	runButton.style.display = 'none';
 
 	// reference to the preview iframe
 	var preview = window.preview;
@@ -101,7 +109,7 @@ var runJS = function(){
 
 };
 
-document.getElementById('run').addEventListener('click', runJS, false);
+runButton.addEventListener('click', runJS, false);
 
 // anytime the editor content changes, this is triggered
 window.addEventListener('message', function(e) {
@@ -121,7 +129,7 @@ window.addEventListener('message', function(e) {
 
 	var scripts = previewDoc.getElementsByTagName('script')
 
-	document.getElementById('run').style.display = scripts.length ? 'block' : 'none';
+	runButton.style.display = scripts.length ? 'block' : 'none';
 
 
 }, false);

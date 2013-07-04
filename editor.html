@@ -28,11 +28,15 @@ body {
 </head>
 <body>
 
-Hello World
+<button>Hello World</button>
 
 <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
 <script>
 (function(){
+
+	$('button').on('click', function(){
+		alert('boom!');
+	});
 
 })();
 </script>
@@ -42,13 +46,32 @@ Hello World
 
 <script src="components/ace-builds/src-min/ace.js" charset="utf-8"></script>
 <script>
+
+	// grab the hash fro the parent frame
+	var hash = parent.location.hash;
+
+	if(!hash){
+		// no hash. let's set the hash to a timestamp and start over
+		parent.location.hash = new Date().getTime()
+		return;
+	}
+
+
+	var code = localStorage.getItem(hash) || document.getElementById('boilerplate').value;
+
 	var editor = ace.edit('editor');
 	editor.setTheme('ace/theme/solarized_dark'),
 	editor.getSession().setMode('ace/mode/html');
+	editor.getSession().setTabSize(4);
+	editor.getSession().setUseSoftTabs(true);
 	editor.on('change', function(e){
-		parent.postMessage(editor.getValue(), '*');
+		code = editor.getValue();
+		localStorage.setItem(hash, code)
+		parent.postMessage(code, '*');
 	});
-	editor.setValue(document.getElementById('boilerplate').value);
+	editor.setValue(code);
+	editor.clearSelection();
+	editor.focus();
 </script>
 
 </body>
