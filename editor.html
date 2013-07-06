@@ -44,34 +44,54 @@ body {
 </body>
 </html></textarea>
 
-<script src="components/ace-builds/src-min/ace.js" charset="utf-8"></script>
+<script src="bower_components/ace-builds/src-min/ace.js" charset="utf-8"></script>
 <script>
+
+'use strict';
+
+(function(){
 
 	// grab the hash fro the parent frame
 	var hash = parent.location.hash;
 
 	if(!hash){
-		// no hash. let's set the hash to a timestamp and start over
+		// no hash. let's set the hash to a timestamp
+		// the hash change will trigger the parent window to reload
 		parent.location.hash = new Date().getTime()
 		return;
 	}
 
-
+	// use the stored code otherwise start with our simple boilerplate
 	var code = localStorage.getItem(hash) || document.getElementById('boilerplate').value;
 
+	// fire up ACE
 	var editor = ace.edit('editor');
 	editor.setTheme('ace/theme/solarized_dark'),
 	editor.getSession().setMode('ace/mode/html');
 	editor.getSession().setTabSize(4);
 	editor.getSession().setUseSoftTabs(true);
+
+	// anytime the editor changes
 	editor.on('change', function(e){
+
+		// grab the code
 		code = editor.getValue();
+
+		// update localstorage
 		localStorage.setItem(hash, code)
+
+		// pass the code to the parent
 		parent.postMessage(code, '*');
+
 	});
+
+	// on load, update the editor with the code
 	editor.setValue(code);
 	editor.clearSelection();
 	editor.focus();
+
+})();
+
 </script>
 
 </body>

@@ -60,79 +60,86 @@ iframe {
 
 <script>
 
-window.addEventListener('hashchange', function(){
-	location.reload();
-}, false);
+'use strict';
 
-var runButton = document.getElementById('run');
+(function(){
 
-var runJS = function(){
+	window.addEventListener('hashchange', function(){
+		location.reload();
+	}, false);
 
-	runButton.style.display = 'none';
+	var runButton = document.getElementById('run');
 
-	// reference to the preview iframe
-	var preview = window.preview;
-	var previewDoc = preview.document;
+	var runJS = function(){
 
-	// find all the script tags
-	var scripts = previewDoc.getElementsByTagName('script')
+		runButton.style.display = 'none';
 
-	var script;
-	for (var i = 0; i < scripts.length; i++) {
+		// reference to the preview iframe
+		var preview = window.preview;
+		var previewDoc = preview.document;
 
-		script = scripts[i];
+		// find all the script tags
+		var scripts = previewDoc.getElementsByTagName('script')
 
-		// create a new script element
-		var newScript = document.createElement('script');
+		var script;
+		for (var i = 0; i < scripts.length; i++) {
 
-		// script tags will contain code or have a src attr
-		// so we'll store a reference to both
-		var code = script.innerText;
-		var src = script.getAttribute('src');
+			script = scripts[i];
 
-		// if the tag has a src, let's ajax it in syncronously
-		// in order to preserve the order of execution
-		if(src){
-			var xhr = new XMLHttpRequest();
-			xhr.open( 'GET', src, false ); // async = false
-			xhr.send( null );
-			code = xhr.responseText;
+			// create a new script element
+			var newScript = document.createElement('script');
+
+			// script tags will contain code or have a src attr
+			// so we'll store a reference to both
+			var code = script.innerText;
+			var src = script.getAttribute('src');
+
+			// if the tag has a src, let's ajax it in syncronously
+			// in order to preserve the order of execution
+			if(src){
+				var xhr = new XMLHttpRequest();
+				xhr.open( 'GET', src, false ); // async = false
+				xhr.send( null );
+				code = xhr.responseText;
+			}
+
+			// now append our "code" into the new script tag
+			newScript.innerText = code;
+
+			// and replace the old with the new. now the JS should execute
+			script.parentNode.replaceChild(newScript, script);
+
 		}
 
-		// now append our "code" into the new script tag
-		newScript.innerText = code;
+	};
 
-		// and replace the old with the new. now the JS should execute
-		script.parentNode.replaceChild(newScript, script);
+	runButton.addEventListener('click', runJS, false);
 
-	}
+	// anytime the editor content changes, this is triggered
+	window.addEventListener('message', function(e) {
 
-};
+		// reference to the preview iframe
+		var preview = window.preview;
+		var previewDoc = preview.document;
 
-runButton.addEventListener('click', runJS, false);
+		// grab the code currently in the editor
+		// and innerHTML it into the preview
+		previewDoc.documentElement.innerHTML = e.data;
 
-// anytime the editor content changes, this is triggered
-window.addEventListener('message', function(e) {
+		// OK. cool! HTML and CSS work fine, however JS will
+		// not be executed when innerHTML'd
+		// so we have to find all the <script> tags
+		// and manually execute them
 
-	// reference to the preview iframe
-	var preview = window.preview;
-	var previewDoc = preview.document;
+		var scripts = previewDoc.getElementsByTagName('script')
 
-	// grab the code currently in the editor
-	// and innerHTML it into the preview
-	previewDoc.documentElement.innerHTML = e.data;
-
-	// OK. cool! HTML and CSS work fine, however JS will
-	// not be executed when innerHTML'd
-	// so we have to find all the <script> tags
-	// and manually execute them
-
-	var scripts = previewDoc.getElementsByTagName('script')
-
-	runButton.style.display = scripts.length ? 'block' : 'none';
+		runButton.style.display = scripts.length ? 'block' : 'none';
 
 
-}, false);
+	}, false);
+
+})();
+
 </script>
 
 <!-- Google Analytics -->
