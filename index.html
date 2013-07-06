@@ -79,7 +79,7 @@ iframe {
 		var previewDoc = preview.document;
 
 		// find all the script tags
-		var scripts = previewDoc.getElementsByTagName('script')
+		var scripts = previewDoc.getElementsByTagName('script');
 
 		var script;
 		for (var i = 0; i < scripts.length; i++) {
@@ -91,7 +91,7 @@ iframe {
 
 			// script tags will contain code or have a src attr
 			// so we'll store a reference to both
-			var code = script.innerText;
+			var code = script.text;
 			var src = script.getAttribute('src');
 
 			// if the tag has a src, let's ajax it in syncronously
@@ -104,7 +104,7 @@ iframe {
 			}
 
 			// now append our "code" into the new script tag
-			newScript.innerText = code;
+			newScript.text = code;
 
 			// and replace the old with the new. now the JS should execute
 			script.parentNode.replaceChild(newScript, script);
