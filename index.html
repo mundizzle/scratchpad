@@ -32,28 +32,61 @@ iframe {
 	width: 50%;
 }
 
-#run {
+
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot');
+}
+@font-face {
+	font-family: 'icomoon';
+	src: url(data:application/x-font-woff;charset=utf-8;base64,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) format('woff'),
+		 url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'icomoon';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+#evalJS {
 	position: fixed;
 	top: 0;
 	right: 50%;
-	z-index: 10;
-	border-bottom: 1px solid #93A1A1;
-	border-left: 1px solid #93A1A1;
-	cursor: pointer;
-	display: inline-block;
-	padding: 5px 10px;
-	color: #93A1A1;
-	font-weight: bold;
-	border-radius: 0 0 0 5px;
-	display: none;
+	z-index: 1;
+	color: #859900;
+	font-size: 2em;
+    -webkit-animation: pulsate 2s linear;
+    -webkit-animation-iteration-count: infinite;
+    opacity: 0.0;
+    padding: .5em;
 }
+
+#evalJS.active {
+	opacity: 1
+}
+
+@-webkit-keyframes pulsate {
+	0% {opacity: 0.0;}
+	50% {opacity: 1.0;}
+	100% {opacity: 0.0;}
+}
+
 </style>
 </head>
 <body>
 
 <a href="http://mundizzle.github.io/scratchpad/"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
-<div id="run">Run JS &raquo;</div>
+<i data-icon="&#xe001;" id="evalJS" title="Execute JS"></i>
 
 <iframe name="editor" src="editor.html"></iframe>
 <iframe name="preview"></iframe>
@@ -64,15 +97,16 @@ iframe {
 
 (function(){
 
+	var evalJSButton = document.querySelector('#evalJS');
+
 	window.addEventListener('hashchange', function(){
 		location.reload();
 	}, false);
 
-	var runButton = document.getElementById('run');
 
-	var runJS = function(){
+	var evalJS = function(){
 
-		runButton.style.display = 'none';
+		evalJSButton.className = '';
 
 		// reference to the preview iframe
 		var preview = window.preview;
@@ -113,7 +147,7 @@ iframe {
 
 	};
 
-	runButton.addEventListener('click', runJS, false);
+	evalJSButton.addEventListener('click', evalJS, false);
 
 	// anytime the editor content changes, this is triggered
 	window.addEventListener('message', function(e) {
@@ -133,8 +167,7 @@ iframe {
 
 		var scripts = previewDoc.getElementsByTagName('script')
 
-		runButton.style.display = scripts.length ? 'block' : 'none';
-
+		evalJSButton.className = scripts.length ? 'active' : '';
 
 	}, false);
 

@@ -28,15 +28,13 @@ body {
 </head>
 <body>
 
-<button>Hello World</button>
+Hello World!
 
-<script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+<script src="//code.jquery.com/jquery-latest.min.js"></script>
 <script>
 (function(){
 
-	$('button').on('click', function(){
-		alert('boom!');
-	});
+	alert('javascript executed!');
 
 })();
 </script>
@@ -44,25 +42,43 @@ body {
 </body>
 </html></textarea>
 
-<script src="bower_components/ace-builds/src-min/ace.js" charset="utf-8"></script>
+<script src="libraries/ace-builds-1.1.01/src-min/ace.js" charset="utf-8"></script>
 <script>
 
 'use strict';
 
+
 (function(){
 
-	// grab the hash fro the parent frame
+	// http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values
+	function getParameterByName(name) {
+		name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+		var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+			results = regex.exec(parent.location.search);
+		return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+
+	var code = getParameterByName('code');
+
+	if(code){
+		var id = '#' + new Date().getTime();
+		localStorage.setItem(id, code);
+		parent.location = '/' + id;
+		return;
+	}
+
+	// grab the hash from the parent frame
 	var hash = parent.location.hash;
 
 	if(!hash){
 		// no hash. let's set the hash to a timestamp
 		// the hash change will trigger the parent window to reload
-		parent.location.hash = new Date().getTime()
+		parent.location.hash = new Date().getTime();
 		return;
 	}
 
 	// use the stored code otherwise start with our simple boilerplate
-	var code = localStorage.getItem(hash) || document.getElementById('boilerplate').value;
+	code = localStorage.getItem(hash+'') || document.getElementById('boilerplate').value;
 
 	// fire up ACE
 	var editor = ace.edit('editor');
