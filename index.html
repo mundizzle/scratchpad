@@ -64,14 +64,15 @@ iframe {
 	z-index: 1;
 	color: #859900;
 	font-size: 2em;
-    -webkit-animation: pulsate 2s linear;
-    -webkit-animation-iteration-count: infinite;
-    opacity: 0.0;
     padding: .5em;
+    display: none;
 }
 
 #evalJS.active {
-	opacity: 1
+	opacity: 1;
+    -webkit-animation: pulsate 2s linear;
+    -webkit-animation-iteration-count: infinite;
+    display: block;
 }
 
 @-webkit-keyframes pulsate {
