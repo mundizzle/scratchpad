@@ -1,6 +1,6 @@
 ## Scratchpad
 
-Real Time HTML editor with preview. Uses [ACE Editor](https://github.com/mundizzle/scratchpad)
+Real time HTML editor with preview. Uses [ACE Editor](https://github.com/mundizzle/scratchpad)
 
 Hopefully useful for quickly trying out some HTML/CSS and even JS ideas and seeing how they look in a browser.
 
@@ -25,3 +25,10 @@ If there is not an entry in localStorage for a given document ID, Scratchpad wil
 Are supported by appending a querystring parameter of ```code``` to the URL. Scratchpad automatically create a document ID and use the ```code``` value as the document.
 
 Example: ```http://localhost:8080/?code=<b>Boo!</b>```
+
+
+## JavaScript Evaluation
+
+Scratchpad does not evaluate JS real time like it does for HTML & CSS. Instead, if the document contains any ```<script>``` tags, a lightning bolt icon will appear. Clicking this will execute the JS code.
+
+Scratchpad does not currently support script tags with src (```<script src="">```) from servers that are not CORS enabled.
