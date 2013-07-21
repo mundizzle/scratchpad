@@ -8,12 +8,12 @@ Inspired by [Scratchpad](http://scratchpad.io)
 
 ## Things to know
 
-#### LocalStorage
+### LocalStorage
 Scratchpad saves and retrieves documents using the brower's localStorage. The document's ID is the ```location.hash```
 
 For example ```http://mundizzle.github.io/scratchpad/#cool_codez``` will create an entry in localStorage named ```#cool_codez```. You can verify this by typing ```localStorage.getItem('#cool_codez')``` in your browser's JS console.
 
-#### Create new document
+### Create new document
 You can create a new document by changing the ```location.hash``` to any ID you want.
 
 If no hash is supplied, for example ```http://mundizzle.github.io/scratchpad```, then a hash will be generated via ```new Date().getTime()``` and that will be the ID of the document.
@@ -27,7 +27,7 @@ Are supported by appending a querystring parameter of ```code``` to the URL. Scr
 Example: ```http://localhost:8080/?code=<b>Boo!</b>```
 
 
-## JavaScript Evaluation
+### JavaScript Evaluation
 
 Scratchpad does not evaluate JS real time like it does for HTML & CSS. Instead, if the document contains any ```<script>``` tags, a lightning bolt icon will appear. Clicking this will execute the JS code.
 
