@@ -20,7 +20,7 @@ If no hash is supplied, for example ```http://mundizzle.github.io/scratchpad```,
 
 If there is not an entry in localStorage for a given document ID, Scratchpad will make an entry containing some basic HTML boilerplate.
 
-#### Shareable Links
+### Shareable Links
 
 Are supported by appending a querystring parameter of ```code``` to the URL. Scratchpad automatically create a document ID and use the ```code``` value as the document.
 
