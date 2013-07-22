@@ -69,13 +69,36 @@ iframe {
 }
 
 #evalJS.active {
-	opacity: 1;
-    -webkit-animation: pulsate 2s linear;
-    -webkit-animation-iteration-count: infinite;
     display: block;
+
+    -webkit-animation: pulsate 2s linear;
+    -moz-animation: pulsate 2s linear;
+    -o-animation: pulsate 2s linear;
+    animation: pulsate 2s linear;
+
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -o-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+
 }
 
 @-webkit-keyframes pulsate {
+	0% {opacity: 0.0;}
+	50% {opacity: 1.0;}
+	100% {opacity: 0.0;}
+}
+@-moz-keyframes pulsate {
+	0% {opacity: 0.0;}
+	50% {opacity: 1.0;}
+	100% {opacity: 0.0;}
+}
+@-o-keyframes pulsate {
+	0% {opacity: 0.0;}
+	50% {opacity: 1.0;}
+	100% {opacity: 0.0;}
+}
+@keyframes pulsate {
 	0% {opacity: 0.0;}
 	50% {opacity: 1.0;}
 	100% {opacity: 0.0;}
