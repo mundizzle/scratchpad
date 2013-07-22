@@ -24,19 +24,33 @@
 body {
 	font-family: sans-serif;
 }
+
+.greeting {
+    margin: 2em;
+    padding: 1em;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-shadow: #ddd .5em .5em .5em;
+    border-radius: 1em;
+    background: #4096ee;
+    transition: all 1s ease-in;
+}
+
+.greeting:hover {
+    background: #b4e391;
+    -webkit-transform:rotate(360deg);
+    -moz-transform:rotate(360deg);
+    transform:rotate(360deg);
+}
+
 </style>
 </head>
 <body>
 
-Hello World!
+<p class="greeting">hello world!</p>
 
-<script src="//code.jquery.com/jquery-latest.min.js"></script>
 <script>
-(function(){
-
-	alert('Hello World!');
-
-})();
+    document.querySelector('.greeting').innerHTML = 'nice job, you just ran some javascript!';
 </script>
 
 </body>
