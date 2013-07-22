@@ -2,9 +2,17 @@
 
 Real time HTML editor with preview. Uses [ACE Editor](https://github.com/mundizzle/scratchpad)
 
-Hopefully useful for quickly trying out some HTML/CSS and even JS ideas and seeing how they look in a browser.
+Hopefully useful for quickly trying out some HTML/CSS and even JS code and seeing how it looks.
 
 Inspired by [Scratchpad](http://scratchpad.io)
+
+For more substantial coding excercises, I highly recommend more capable and featureful apps like..
+
+- [Codepen](http://codepen.io)
+- [JSFiddle](http://jsfiddle.net)
+- [JSBin](http://jsbin.com)
+- [Dabblet](http://dabblet.com)
+
 
 ## Things to know
 
