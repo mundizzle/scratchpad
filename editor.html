@@ -33,10 +33,11 @@ body {
     box-shadow: #ddd .5em .5em .5em;
     border-radius: 1em;
     background: #4096ee;
-    transition: all 1s ease-in;
+    transition: all .5s ease-in;
 }
 
-.greeting:hover {
+.greeting:hover,
+.greeting.activated {
     background: #b4e391;
     -webkit-transform:rotate(360deg);
     -moz-transform:rotate(360deg);
@@ -50,7 +51,9 @@ body {
 <p class="greeting">hello world!</p>
 
 <script>
-    document.querySelector('.greeting').innerHTML = 'nice job, you just ran some javascript!';
+var greeting = document.querySelector('.greeting');
+greeting.innerHTML = 'nice job. you just ran some javascript!';
+greeting.className += ' activated';
 </script>
 
 </body>
