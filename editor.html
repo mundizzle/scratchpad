@@ -33,15 +33,17 @@ body {
     box-shadow: #ddd .5em .5em .5em;
     border-radius: 1em;
     background: #4096ee;
+    -webkit-transition: all .5s ease-in;
+    -moz-transition: all .5s ease-in;
     transition: all .5s ease-in;
 }
 
 .greeting:hover,
 .greeting.activated {
     background: #b4e391;
-    -webkit-transform:rotate(360deg);
-    -moz-transform:rotate(360deg);
-    transform:rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    transform: rotate(360deg);
 }
 
 </style>
