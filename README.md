@@ -34,9 +34,12 @@ Are supported by appending a querystring parameter of ```code``` to the URL. Scr
 
 Example: ```http://localhost:8080/?code=<b>Boo!</b>```
 
-
 ### JavaScript Evaluation
 
 Scratchpad does not evaluate JS real time like it does for HTML & CSS. Instead, if the document contains any ```<script>``` tags, a lightning bolt icon will appear. Clicking this will execute the JS code.
 
 Scratchpad does not currently support script tags with src (```<script src="">```) from servers that are not CORS enabled.
+
+### Browser Compatibility
+
+Only tested on Mac Chrome/Firefox/Safari latest
