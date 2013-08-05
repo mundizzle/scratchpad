@@ -21,41 +21,32 @@
 <html lang="en">
 <head>
 <style>
-body {
-	font-family: sans-serif;
-}
-
-.greeting {
-    margin: 2em;
+p {
+    margin: 1em;
     padding: 1em;
     display: inline-block;
-    border: 1px solid #ccc;
-    box-shadow: #ddd .5em .5em .5em;
     border-radius: 1em;
-    background: #4096ee;
-    -webkit-transition: all .5s ease-in;
-    -moz-transition: all .5s ease-in;
-    transition: all .5s ease-in;
+    background: blue;
+    color: white;
+    -webkit-transition: 2s;
+    -moz-transition: 2s;
+    transition: 2s;
 }
 
-.greeting:hover,
-.greeting.activated {
-    background: #b4e391;
+p:hover {
+    background: red;
     -webkit-transform: rotate(360deg);
     -moz-transform: rotate(360deg);
     transform: rotate(360deg);
 }
-
 </style>
 </head>
 <body>
 
-<p class="greeting">hello world!</p>
+<p>hello world!</p>
 
 <script>
-var greeting = document.querySelector('.greeting');
-greeting.innerHTML = 'nice job. you just ran some javascript!';
-greeting.className += ' activated';
+alert('javascript!');
 </script>
 
 </body>
